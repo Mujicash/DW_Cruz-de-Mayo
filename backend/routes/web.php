@@ -20,4 +20,8 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/sucursales', 'SucursalesController@index');
     $router->get('/sucursales/{id}', 'SucursalesController@show');
+    $router->post('/usuarios', 'UsuariosController@store');
+    $router->get('/usuarios', 'UsuariosController@index');
+    $router->get('/usuarios/{id}', 'UsuariosController@show');
+    $router->post('/login', 'UsuariosController@login');
 });

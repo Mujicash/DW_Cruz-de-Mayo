@@ -51,4 +51,10 @@ class DBSucursalRepository implements SucursalRepository {
     public function delete(int $idSucursal): int {
         return DB::delete('DELETE FROM sucursales WHERE id = :id', ['id' => $idSucursal]);
     }
+
+    public function getIdByName(string $nombre): int {
+        $result = DB::select('SELECT id FROM sucursales WHERE nombre = :nombre', ['nombre' => $nombre]);
+
+        return $result[0]->id;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Negocio;
 
 use App\Models\SucursalRepository;
+use Exception;
 
 class SucursalFinder {
 
@@ -16,8 +17,15 @@ class SucursalFinder {
     }
 
     public function getAll(): array {
-        $sucursales = $this->repository->getAll();
-        $statusCode = empty($sucursales) ? 502 : 200;
+
+        try {
+            $sucursales = $this->repository->getAll();
+            $statusCode = empty($sucursales) ? 502 : 200;
+        }
+        catch (Exception $e) {
+            $sucursales = array('Error' => $e->getMessage());
+            $statusCode = 500;
+        }
 
         return [
             'sucursales' => $sucursales,
