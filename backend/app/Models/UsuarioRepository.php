@@ -10,11 +10,6 @@ interface UsuarioRepository {
 
     public function validate(string $usuario, string $password): ?Usuario;
 
-    /**
-     * @param int $idUsuario
-     * @return Usuario|null
-     * @throws UserNotFoundException
-     */
     public function getById(int $idUsuario): ?Usuario;
 
     public function getAll(): array;

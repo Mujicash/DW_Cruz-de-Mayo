@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Negocio\RegisterNewUser;
-use App\Negocio\UserFinder;
+use App\Negocio\Usuario\DeleteUser;
+use App\Negocio\Usuario\RegisterNewUser;
+use App\Negocio\Usuario\UpdateUser;
+use App\Negocio\Usuario\UserFinder;
 use App\Persistencia\DBUsuarioRepository;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller;
@@ -44,7 +46,31 @@ class UsuariosController extends Controller {
         return response()->json($result['usuario'])->setStatusCode($result['statusCode']);
     }
 
-    public function destroy(Request $request) {}
+    public function update(Request $request, int $id) {
+        $datos = [
+            'usuario'         => $request->usuario,
+            'nombre'          => $request->nombre,
+            'apellidoPaterno' => $request->apellidoPaterno,
+            'apellidoMaterno' => $request->apellidoMaterno,
+            'password'        => $request->password,
+            'tipo'            => $request->tipo,
+            'sucursal'        => $request->sucursal
+        ];
+
+        $repository = new DBUsuarioRepository();
+        $updater    = new UpdateUser($repository);
+        $result     = $updater($id, $datos);
+
+        return response()->json(['message' => $result['message']])->setStatusCode($result['statusCode']);
+    }
+
+    public function destroy(int $id) {
+        $repository = new DBUsuarioRepository();
+        $deleter    = new DeleteUser($repository);
+        $result     = $deleter($id);
+
+        return response()->json(['message' => $result['message']])->setStatusCode($result['statusCode']);
+    }
 
     public function login(Request $request) {
         $usuario    = $request['usuario'];

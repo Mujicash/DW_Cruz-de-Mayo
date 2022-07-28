@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,8 @@
 |
 */
 
+use Laravel\Lumen\Routing\Router;
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -20,8 +22,19 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/sucursales', 'SucursalesController@index');
     $router->get('/sucursales/{id}', 'SucursalesController@show');
+
+    //Usuarios
     $router->post('/usuarios', 'UsuariosController@store');
     $router->get('/usuarios', 'UsuariosController@index');
     $router->get('/usuarios/{id}', 'UsuariosController@show');
+    $router->put('/usuarios/{id}', 'UsuariosController@update');
+    $router->delete('/usuarios/{id}', 'UsuariosController@destroy');
     $router->post('/login', 'UsuariosController@login');
+
+    //Productos
+    $router->get('/productos', 'ProductosController@index');
+    $router->post('/productos', 'ProductosController@store');
+    $router->get('/productos/{nombre}', 'ProductosController@show');
+    $router->put('/productos/{id}', 'ProductosController@update');
+    $router->delete('/productos/{id}', 'ProductosController@destroy');
 });

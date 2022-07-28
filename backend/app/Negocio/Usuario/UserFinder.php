@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Negocio;
+namespace App\Negocio\Usuario;
 
 use App\Exceptions\UserNotFoundException;
 use App\Models\UsuarioRepository;

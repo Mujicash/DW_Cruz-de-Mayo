@@ -70,10 +70,21 @@ class DBUsuarioRepository implements UsuarioRepository {
     }
 
     public function update(Usuario $usuario): int {
-        return 0;
+        return DB::update('UPDATE usuarios
+            set usuario = :usuario, nombre = :nombre, apellido_pat = :apellido_pat, apellido_mat = :apellido_mat,
+            pasword = :password, id_tipo = :tipo, id_sucursal = :sucursal WHERE id = :id', [
+            'usuario'      => $usuario->getUsuario(),
+            'nombre'       => $usuario->getNombre(),
+            'apellido_pat' => $usuario->getApellidoPaterno(),
+            'apellido_mat' => $usuario->getApellidoMaterno(),
+            'password'     => $usuario->getPassword(),
+            'tipo'         => $usuario->getTipo(),
+            'sucursal'     => $usuario->getSucursal(),
+            'id'           => $usuario->getId()
+        ]);
     }
 
     public function delete(int $idUsuario): int {
-        return 0;
+        return DB::delete('DELETE from usuarios WHERE id = :id', ['id' => $idUsuario]);
     }
 }

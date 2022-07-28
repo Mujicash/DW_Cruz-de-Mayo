@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Negocio;
+namespace App\Negocio\Usuario;
 
 use App\Models\Usuario;
 use App\Models\UsuarioRepository;
 use App\Persistencia\DBSucursalRepository;
 use App\Persistencia\DBTipoUsuarioRepository;
 use Exception;
-use Illuminate\Database\QueryException;
 
-class RegisterNewUser {
+class UpdateUser {
 
     private UsuarioRepository $repository;
 
@@ -20,24 +19,24 @@ class RegisterNewUser {
         $this->repository = $repository;
     }
 
-    public function __invoke(array $datos): array {
-
+    public function __invoke(int $id, array $datos): array {
         $tipoUsuarioRepo = new DBTipoUsuarioRepository();
         $sucursalRepo    = new DBSucursalRepository();
+        //hashing password
 
         try {
-            $usuario = new Usuario(0, $datos['usuario'], $datos['nombre'], $datos['apellidoPaterno'],
+            $usuario = new Usuario($id, $datos['usuario'], $datos['nombre'], $datos['apellidoPaterno'],
                                    $datos['apellidoMaterno'], $datos['password'],
                                    $tipoUsuarioRepo->getIdByName($datos['tipo']),
                                    $sucursalRepo->getIdByName($datos['sucursal']));
 
-            if($this->repository->create($usuario)) {
-                $message    = "Product has been registered successfully";
+            if ($this->repository->update($usuario)) {
+                $message    = "User has been successfully updated";
                 $statusCode = 200;
             }
             else {
-                $message    = "An error has occurred ";
-                $statusCode = 502;
+                $message    = "User is not found with id " . $id;
+                $statusCode = 404;
             }
         }
         catch (Exception $e) {
@@ -46,10 +45,9 @@ class RegisterNewUser {
         }
 
         return [
-            'message' => $message,
+            'message'    => $message,
             'statusCode' => $statusCode
         ];
     }
-
 
 }
