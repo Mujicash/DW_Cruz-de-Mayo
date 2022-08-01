@@ -3,7 +3,9 @@
 namespace App\Models;
 
 
-class Usuario {
+use JsonSerializable;
+
+class Usuario implements JsonSerializable {
 
     private int    $id;
     private string $usuario;
@@ -24,7 +26,7 @@ class Usuario {
      * @param int $tipo
      * @param int $sucursal
      */
-    public function __construct(int $id = 0, string $usuario, string $nombre, string $apellidoPaterno, string $apellidoMaterno, string $password, int $tipo, int $sucursal) {
+    public function __construct( int $id, string $usuario, string $nombre, string $apellidoPaterno, string $apellidoMaterno, string $password, int $tipo, int $sucursal) {
         $this->id              = $id;
         $this->usuario         = $usuario;
         $this->nombre          = $nombre;
@@ -77,16 +79,10 @@ class Usuario {
         return $this->password;
     }
 
-    /**
-     * @return int
-     */
     public function getTipo(): int {
         return $this->tipo;
     }
 
-    /**
-     * @return int
-     */
     public function getSucursal(): int {
         return $this->sucursal;
     }

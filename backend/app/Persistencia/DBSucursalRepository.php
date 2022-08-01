@@ -4,6 +4,7 @@ namespace App\Persistencia;
 
 use App\Models\Sucursal;
 use App\Models\SucursalRepository;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class DBSucursalRepository implements SucursalRepository {
@@ -26,15 +27,20 @@ class DBSucursalRepository implements SucursalRepository {
         return $sucursal;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getAll(): array {
         $result     = DB::select('SELECT * FROM sucursales');
         $sucursales = array();
 
-        if (!empty($result)) {
-            foreach ($result as $i) {
-                $sucursal     = new Sucursal($i->id, $i->nombre, $i->direccion);
-                $sucursales[] = $sucursal;
-            }
+        if (empty($result)) {
+            throw new Exception('No se encontro ninguna sucursal', 404);
+        }
+
+        foreach ($result as $i) {
+            $sucursal     = new Sucursal($i->id, $i->nombre, $i->direccion);
+            $sucursales[] = $sucursal;
         }
 
         return $sucursales;
@@ -50,5 +56,11 @@ class DBSucursalRepository implements SucursalRepository {
 
     public function delete(int $idSucursal): int {
         return DB::delete('DELETE FROM sucursales WHERE id = :id', ['id' => $idSucursal]);
+    }
+
+    public function getIdByName(string $nombre): int {
+        $result = DB::select('SELECT id FROM sucursales WHERE nombre = :nombre', ['nombre' => $nombre]);
+
+        return $result[0]->id;
     }
 }
