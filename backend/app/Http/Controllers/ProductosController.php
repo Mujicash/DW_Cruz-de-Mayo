@@ -2,59 +2,108 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ProductNotFoundException;
 use App\Negocio\ProductoLN;
 use App\Persistencia\DBProductoRepository;
+use Exception;
 use Illuminate\Http\Request;
 use \Laravel\Lumen\Routing\Controller;
 
 class ProductosController extends Controller {
 
-    private ProductoLN $ln;
-
-    public function __construct() {
-        $this->ln = new ProductoLN(new DBProductoRepository());
-    }
-
     public function index() {
-        $result = $this->ln->obtenerTodos();
+        $repositorio = new DBProductoRepository();
+        $productoLN  = new ProductoLN($repositorio);
 
-        return response()->json($result['productos'])->setStatusCode($result['statusCode']);
+        try {
+            $result     = $productoLN->obtenerTodos();
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $result     = array('Error' => $e->getMessage());
+            $statusCode = ($e instanceof ProductNotFoundException) ? $e->getCode() : 500;
+        }
+
+        return response()->json($result)->setStatusCode($statusCode);
     }
 
     public function store(Request $request) {
+        $repositorio = new DBProductoRepository();
+        $productoLN  = new ProductoLN($repositorio);
+
         $nombre      = $request['nombre'];
         $laboratorio = $request['laboratorio'];
         $precioVenta = $request['precio_venta'];
         $descripcion = $request['descripcion'];
         $formato     = $request['formato'];
 
-        $result = $this->ln->registrar($nombre, $laboratorio, $precioVenta, $descripcion, $formato);
+        try {
+            $productoLN->registrar($nombre, $laboratorio, $precioVenta, $descripcion, $formato);
+            $message    = "Product has been registered successfully";
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $message    = 'Error: ' . $e->getMessage();
+            $statusCode = $e->getCode();
+        }
 
-        return response()->json(['message' => $result['message']])->setStatusCode($result['statusCode']);
+        return response()->json(['message' => $message])->setStatusCode($statusCode);
     }
 
     public function show(string $nombre) {
-        $result = $this->ln->obtener($nombre);
+        $repositorio = new DBProductoRepository();
+        $productoLN  = new ProductoLN($repositorio);
 
-        return response()->json($result['producto'])->setStatusCode($result['statusCode']);
+        try {
+            $result     = $productoLN->obtener($nombre);
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $result     = array('Error' => $e->getMessage());
+            $statusCode = ($e instanceof ProductNotFoundException) ? $e->getCode() : 500;
+        }
+
+        return response()->json($result)->setStatusCode($statusCode);
     }
 
     public function update(Request $request, int $id) {
+        $repositorio = new DBProductoRepository();
+        $productoLN  = new ProductoLN($repositorio);
+
         $nombre      = $request['nombre'];
         $laboratorio = $request['laboratorio'];
         $precioVenta = $request['precio_venta'];
         $descripcion = $request['descripcion'];
         $formato     = $request['formato'];
 
-        $result = $this->ln->actualizar($id, $nombre, $laboratorio, $precioVenta, $descripcion, $formato);
+        try {
+            $productoLN->actualizar($id, $nombre, $laboratorio, $precioVenta, $descripcion, $formato);
+            $message    = "Product has been successfully updated";
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $message    = 'Error: ' . $e->getMessage();
+            $statusCode = ($e instanceof ProductNotFoundException) ? $e->getCode() : 500;
+        }
 
-        return response()->json(['message' => $result['message']])->setStatusCode($result['statusCode']);
+        return response()->json(['message' => $message])->setStatusCode($statusCode);
     }
 
     public function destroy(int $id) {
-        $result = $this->ln->eliminar($id);
+        $repositorio = new DBProductoRepository();
+        $productoLN  = new ProductoLN($repositorio);
 
-        return response()->json(['message' => $result['message']])->setStatusCode($result['statusCode']);
+        try {
+            $productoLN->eliminar($id);
+            $message    = "Product has been successfully deleted";
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $message    = 'Error: ' . $e->getMessage();
+            $statusCode = ($e instanceof ProductNotFoundException) ? $e->getCode() : 500;
+        }
+
+        return response()->json(['message' => $message])->setStatusCode($statusCode);
     }
 
 }

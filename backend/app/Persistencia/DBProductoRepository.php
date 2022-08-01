@@ -23,15 +23,21 @@ class DBProductoRepository implements ProductoRepository {
     /**
      * @throws ProductNotFoundException
      */
-    public function getByName(string $nombre): ?Producto {
+    public function getByName(string $nombre): array {
         $result = DB::select('SELECT * FROM productos WHERE nombre like :nombre', ['nombre' => $nombre . '%']);
+        $productos = array();
 
         if (empty($result)) {
-            throw new ProductNotFoundException('The product with the name ' . $nombre . ' was not found.');
+            throw new ProductNotFoundException('There are no products with the name ' . $nombre, 404);
         }
 
-        return new Producto($result[0]->id, $result[0]->nombre, $result[0]->laboratorio, $result[0]->precio_venta,
-                            $result[0]->descripcion, $result[0]->id_unidad);
+        foreach ($result as $i) {
+            $producto    = new Producto($i->id, $i->nombre, $i->laboratorio, $i->precio_venta, $i->descripcion,
+                                        $i->id_unidad);
+            $productos[] = $producto;
+        }
+
+        return $productos;
     }
 
     /**
@@ -56,7 +62,7 @@ class DBProductoRepository implements ProductoRepository {
         $productos = array();
 
         if (empty($result)) {
-            throw new ProductNotFoundException('No product was found');
+            throw new ProductNotFoundException('No product was found', 404);
         }
 
         foreach ($result as $i) {

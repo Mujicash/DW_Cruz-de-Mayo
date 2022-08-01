@@ -16,21 +16,13 @@ class SucursalFinder {
         $this->repository = $repository;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getAll(): array {
 
-        try {
-            $sucursales = $this->repository->getAll();
-            $statusCode = empty($sucursales) ? 502 : 200;
-        }
-        catch (Exception $e) {
-            $sucursales = array('Error' => $e->getMessage());
-            $statusCode = 500;
-        }
+        return $this->repository->getAll();
 
-        return [
-            'sucursales' => $sucursales,
-            'statusCode' => $statusCode
-        ];
     }
 
 

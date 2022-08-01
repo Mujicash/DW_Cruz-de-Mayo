@@ -37,4 +37,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/productos/{nombre}', 'ProductosController@show');
     $router->put('/productos/{id}', 'ProductosController@update');
     $router->delete('/productos/{id}', 'ProductosController@destroy');
+
+    //Formatos
+    $router->get('/formatos', 'FormatosController@index');
+    $router->post('/formatos', 'FormatosController@store');
+    //$router->get('/formatos/{id}', 'FormatosController@show');
+    $router->get('/formatos/{name}', 'FormatosController@getByName');
 });

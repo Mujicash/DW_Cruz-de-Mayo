@@ -2,6 +2,7 @@
 
 namespace App\Negocio\Usuario;
 
+use App\Exceptions\UserNotFoundException;
 use App\Models\UsuarioRepository;
 use Exception;
 
@@ -16,29 +17,16 @@ class DeleteUser {
         $this->repository = $repository;
     }
 
-    public function __invoke(int $id): array {
+    /**
+     * @throws UserNotFoundException
+     */
+    public function __invoke(int $id) {
 
-        try {
-            $result = $this->repository->delete($id);
+        $result = $this->repository->delete($id);
 
-            if ($result == 1) {
-                $message    = 'User has been successfully deleted';
-                $statusCode = 200;
-            }
-            else {
-                $message    = "User is not found with id " . $id;
-                $statusCode = 404;
-            }
+        if (!$result) {
+            throw new UserNotFoundException('No user was found with id ' . $id, 404);
         }
-        catch (Exception $e) {
-            $message    = 'Error: ' . $e->getMessage();
-            $statusCode = 500;
-        }
-
-        return [
-            'message'    => $message,
-            'statusCode' => $statusCode
-        ];
     }
 
 }

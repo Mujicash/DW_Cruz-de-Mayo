@@ -6,10 +6,16 @@ namespace App\Persistencia;
 use App\Models\Usuario;
 use App\Models\UsuarioRepository;
 use App\Exceptions\UserNotFoundException;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class DBUsuarioRepository implements UsuarioRepository {
 
+    /**
+     * @param Usuario $usuario
+     * @return bool
+     * @throws Exception
+     */
     public function create(Usuario $usuario): bool {
         return DB::insert('INSERT INTO usuarios (usuario, nombre, apellido_pat, apellido_mat, pasword, fecha_creacion, ultima_conexion, id_tipo, id_sucursal)
             VALUES (:usuario, :nombre, :apellido_pat, :apellido_mat, :password, NOW(), NOW(), :tipo, :sucursal)', [
@@ -33,8 +39,9 @@ class DBUsuarioRepository implements UsuarioRepository {
         ]);
 
         if (empty($result)) {
-            throw new UserNotFoundException('User is not found with this credentials.');
+            throw new UserNotFoundException('User is not found with this credentials.', 404);
         }
+
         return new Usuario($result[0]->id, $result[0]->usuario, $result[0]->nombre,
                            $result[0]->apellido_pat, $result[0]->apellido_mat,
                            $result[0]->pasword, $result[0]->id_tipo, $result[0]->id_sucursal);
@@ -47,23 +54,28 @@ class DBUsuarioRepository implements UsuarioRepository {
         $result = DB::select('SELECT * FROM usuarios WHERE id = :id', ['id' => $idUsuario]);
 
         if (empty($result)) {
-            throw new UserNotFoundException('User is not found by id ' . $idUsuario);
+            throw new UserNotFoundException('User is not found by id ' . $idUsuario, 404);
         }
         return new Usuario($result[0]->id, $result[0]->usuario, $result[0]->nombre,
                            $result[0]->apellido_pat, $result[0]->apellido_mat,
                            $result[0]->pasword, $result[0]->id_tipo, $result[0]->id_sucursal);
     }
 
+    /**
+     * @throws UserNotFoundException
+     */
     public function getAll(): array {
         $result   = DB::select('SELECT * FROM usuarios');
         $usuarios = array();
 
-        if (!empty($result)) {
-            foreach ($result as $i) {
-                $usuario    = new Usuario($i->id, $i->usuario, $i->nombre, $i->apellido_pat, $i->apellido_mat,
-                                          $i->pasword, $i->id_tipo, $i->id_sucursal);
-                $usuarios[] = $usuario;
-            }
+        if (empty($result)) {
+            throw new UserNotFoundException('No user was found', 404);
+        }
+
+        foreach ($result as $i) {
+            $usuario    = new Usuario($i->id, $i->usuario, $i->nombre, $i->apellido_pat, $i->apellido_mat,
+                                      $i->pasword, $i->id_tipo, $i->id_sucursal);
+            $usuarios[] = $usuario;
         }
 
         return $usuarios;

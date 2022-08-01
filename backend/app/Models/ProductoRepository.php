@@ -6,7 +6,7 @@ interface ProductoRepository {
 
     public function create(Producto $producto): bool;
 
-    public function getByName(string $nombre): ?Producto;
+    public function getByName(string $nombre): array;
 
     public function getById(int $id): ?Producto;
 
