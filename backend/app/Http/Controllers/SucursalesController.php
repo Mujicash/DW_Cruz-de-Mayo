@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sucursal;
 use App\Models\SucursalRepository;
-use App\Negocio\SucursalFinder;
+use App\Negocio\SucursalLN;
 use App\Persistencia\DBSucursalRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class SucursalesController extends Controller {
 
     public function index() {
         $repository = new DBSucursalRepository();
-        $finder     = new SucursalFinder($repository);
+        $finder     = new SucursalLN($repository);
 
         try {
             $result     = $finder->getAll();

@@ -5,7 +5,7 @@ namespace App\Negocio;
 use App\Models\SucursalRepository;
 use Exception;
 
-class SucursalFinder {
+class SucursalLN {
 
     private SucursalRepository $repository;
 

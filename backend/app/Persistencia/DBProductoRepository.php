@@ -90,4 +90,17 @@ class DBProductoRepository implements ProductoRepository {
     public function delete(int $id): bool {
         return DB::delete('DELETE FROM productos WHERE id = :id', ['id' => $id]);
     }
+
+    /**
+     * @throws ProductNotFoundException
+     */
+    public function getId(string $nombre) {
+        $result = DB::select('select id from productos where nombre = :nombre', ['nombre' => $nombre]);
+
+        if (empty($result)) {
+            throw new ProductNotFoundException('No product was found', 404);
+        }
+
+        return $result[0]->id;
+    }
 }

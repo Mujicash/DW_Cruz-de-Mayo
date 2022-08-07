@@ -15,4 +15,6 @@ interface ProductoRepository {
     public function update(Producto $producto): bool;
 
     public function delete(int $id): bool;
+
+    public function getId(string $nombre);
 }

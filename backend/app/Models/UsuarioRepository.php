@@ -17,4 +17,6 @@ interface UsuarioRepository {
     public function update(Usuario $usuario): int;
 
     public function delete(int $idUsuario): int;
+
+    public function getBranchIdByUserId(int $userId): int;
 }
