@@ -4,7 +4,9 @@ namespace App\Models;
 
 interface OrdenCompraRepository {
 
-    public function create(RegistrarOrdenCompraDTO $ordenCompraDTO): int;
+    public function create(OrdenCompra $ordenCompraDTO): int;
 
-    public function createDetail(RegistrarDetalleCompraDTO $detalleCompraDTO): bool;
+    public function createDetail(DetalleCompra $detalleCompraDTO): bool;
+
+    public function getAll(): array;
 }

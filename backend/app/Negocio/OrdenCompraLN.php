@@ -3,8 +3,8 @@
 namespace App\Negocio;
 
 use App\Models\OrdenCompraRepository;
-use App\Models\RegistrarDetalleCompraDTO;
-use App\Models\RegistrarOrdenCompraDTO;
+use App\Models\DetalleCompra;
+use App\Models\OrdenCompra;
 use App\Negocio\Usuario\GetUserBranch;
 use App\Persistencia\DBProductoRepository;
 use App\Persistencia\DBProveedorRepository;
@@ -32,7 +32,7 @@ class OrdenCompraLN {
         $provRepo = new DBProveedorRepository();
         $provLN   = new ProveedorLN($provRepo);
         $proveId  = $provLN->obtenerId($proveedor);
-        $ordenCom = new RegistrarOrdenCompraDTO($idUsuario, $branchId, $proveId);
+        $ordenCom = new OrdenCompra($idUsuario, $branchId, $proveId);
         $ordenId  = $this->repository->create($ordenCom);
 
         $producRepo = new DBProductoRepository();
@@ -40,14 +40,20 @@ class OrdenCompraLN {
 
         foreach ($productos as $producto) {
             $idProduc = $producLN->obtenerId($producto['nombre']);
-            $ordenDet = new RegistrarDetalleCompraDTO($ordenId, $idProduc, $producto['precio'], $producto['cantidad']);
+            $ordenDet = new DetalleCompra($ordenId, $idProduc, $producto['precio'], $producto['cantidad']);
             $result   = $this->repository->createDetail($ordenDet);
 
             if (!$result) {
                 throw new Exception('Ha ocurrido un error al registrar el detalle de la compra', 500);
             }
         }
+    }
 
+    /**
+     * @throws Exception
+     */
+    public function listar(): array {
+        return $this->repository->getAll();
     }
 
 }

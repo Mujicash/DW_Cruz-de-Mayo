@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-class RegistrarDetalleCompraDTO {
+class DetalleCompra {
 
+    private int   $id;
     private int   $idCompra;
     private int   $idProducto;
     private float $precio;
@@ -14,12 +15,21 @@ class RegistrarDetalleCompraDTO {
      * @param int $idProducto
      * @param float $precio
      * @param int $cantidad
+     * @param int $id
      */
-    public function __construct(int $idCompra, int $idProducto, float $precio, int $cantidad) {
+    public function __construct(int $idCompra, int $idProducto, float $precio, int $cantidad, int $id = 0) {
         $this->idCompra   = $idCompra;
         $this->idProducto = $idProducto;
         $this->precio     = $precio;
         $this->cantidad   = $cantidad;
+        $this->id         = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int {
+        return $this->id;
     }
 
     /**
