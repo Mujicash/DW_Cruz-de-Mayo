@@ -65,4 +65,12 @@ class ProductoLN {
         }
     }
 
+    /**
+     * @param string $nombre
+     * @return mixed
+     */
+    public function obtenerId(string $nombre) {
+        return $this->repository->getId($nombre);
+    }
+
 }

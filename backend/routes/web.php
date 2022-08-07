@@ -43,4 +43,15 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/formatos', 'FormatosController@store');
     //$router->get('/formatos/{id}', 'FormatosController@show');
     $router->get('/formatos/{name}', 'FormatosController@getByName');
+
+    //Proveedores
+    $router->get('/proveedores', 'ProveedoresController@index');
+    $router->post('/proveedores', 'ProveedoresController@store');
+    $router->get('/proveedores/{nombre}', 'ProveedoresController@show');
+    $router->put('/proveedores/{id}', 'ProveedoresController@update');
+    $router->delete('/proveedores/{id}', 'ProveedoresController@destroy');
+
+    //Ordenes de Compra
+    $router->post('/ordenesCompra', 'OrdenComprasController@store');
+    $router->get('/ordenesCompra', 'OrdenComprasController@listarOrdenes');
 });

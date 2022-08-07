@@ -46,7 +46,7 @@ class UsuariosController extends Controller {
 
         try {
             $register($datos);
-            $message    = "Product has been registered successfully";
+            $message    = "User has been registered successfully";
             $statusCode = 200;
         }
         catch (Exception $e) {

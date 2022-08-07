@@ -99,4 +99,17 @@ class DBUsuarioRepository implements UsuarioRepository {
     public function delete(int $idUsuario): int {
         return DB::delete('DELETE from usuarios WHERE id = :id', ['id' => $idUsuario]);
     }
+
+    /**
+     * @throws Exception
+     */
+    public function getBranchIdByUserId(int $userId): int {
+        $branchId = DB::select('select id_sucursal from usuarios where id = :id', ['id' => $userId]);
+
+        if (empty($branchId)) {
+            throw new Exception('Error al encontrar la sucursal del usuario', 500);
+        }
+
+        return $branchId[0]->id_sucursal;
+    }
 }
