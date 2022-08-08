@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\UserNotFoundException;
+use App\Models\PasswordManager;
 use App\Negocio\Usuario\DeleteUser;
 use App\Negocio\Usuario\RegisterNewUser;
 use App\Negocio\Usuario\UpdateUser;
@@ -42,7 +43,8 @@ class UsuariosController extends Controller {
         ];
 
         $repository = new DBUsuarioRepository();
-        $register   = new RegisterNewUser($repository);
+        $passwordMg = new PasswordManager();
+        $register   = new RegisterNewUser($repository, $passwordMg);
 
         try {
             $register($datos);
@@ -85,7 +87,8 @@ class UsuariosController extends Controller {
         ];
 
         $repository = new DBUsuarioRepository();
-        $updater    = new UpdateUser($repository);
+        $passwordMg = new PasswordManager();
+        $updater    = new UpdateUser($repository, $passwordMg);
 
         try {
             $updater($id, $datos);
