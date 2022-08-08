@@ -54,4 +54,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     //Ordenes de Compra
     $router->post('/ordenesCompra', 'OrdenComprasController@store');
     $router->get('/ordenesCompra', 'OrdenComprasController@listarOrdenes');
+    $router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
+
+    //Ordenes de Salida
+    $router->post('/ordenesSalida', 'OrdenSalidasController@store');
+    $router->get('/ordenesSalida', 'OrdenSalidasController@listarOrdenes');
+    $router->get('/ordenesSalida/{id}', 'OrdenSalidasController@show');
+});
+
+$router->get('/test', function () {
+    return (new \App\Models\PasswordManager())->hash('1234567890');
 });

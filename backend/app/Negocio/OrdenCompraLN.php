@@ -2,6 +2,7 @@
 
 namespace App\Negocio;
 
+use App\Models\DetalleCompraDTO;
 use App\Models\OrdenCompraRepository;
 use App\Models\DetalleCompra;
 use App\Models\OrdenCompra;
@@ -55,5 +56,13 @@ class OrdenCompraLN {
     public function listar(): array {
         return $this->repository->getAll();
     }
+
+    /**
+     * @throws Exception
+     */
+    public function obtener(int $id): DetalleCompraDTO {
+        return $this->repository->getDetail($id);
+    }
+
 
 }
