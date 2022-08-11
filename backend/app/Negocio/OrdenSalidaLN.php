@@ -23,18 +23,15 @@ class OrdenSalidaLN {
      * @throws Exception
      */
     public function registrar(int $idUsuario, array $productos) {
+        //Obtenemos sucursal del usuario
         $userRepo = new DBUsuarioRepository();
         $userLN   = new GetUserBranch($userRepo);
         $branchId = $userLN->getId($idUsuario);
         $ordenSal = new OrdenSalida($idUsuario, $branchId);
         $ordenId  = $this->repository->create($ordenSal);
 
-        $producRepo = new DBProductoRepository();
-        $producLN   = new ProductoLN($producRepo);
-
         foreach ($productos as $producto) {
-            $idProduc = $producLN->obtenerId($producto['nombre']);
-            $ordenDet = new DetalleSalida($ordenId, $idProduc, $producto['cantidad']);
+            $ordenDet = new DetalleSalida($ordenId, $producto['id'], $producto['cantidad']);
             $result   = $this->repository->createDetail($ordenDet);
 
             if (!$result) {

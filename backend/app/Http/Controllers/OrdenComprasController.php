@@ -62,4 +62,27 @@ class OrdenComprasController extends Controller {
 
         return response()->json($result)->setStatusCode($statusCode);
     }
+
+    public function registrarGuia(Request $request) {
+        $repositorio = new DBOrdenCompraRepository();
+        $ordenCompLN = new OrdenCompraLN($repositorio);
+
+        $idCompra = $request["id_compra"];
+        $numGuia  = $request["num_guia"];
+        $motivo   = $request["motivo"];
+        $fechaRec = $request["fecha_recepcion"];
+        $imagen   = $request["imagen"];
+
+        try {
+            $ordenCompLN->registrarGuia($idCompra, $numGuia, $motivo, $fechaRec, $imagen);
+            $message    = "Se ha registrado correctamente la guia de remision de la orden " . $idCompra;
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $message    = 'Error: ' . $e->getMessage();
+            $statusCode = $e->getCode();
+        }
+
+        return response()->json(['message' => $message])->setStatusCode(500);
+    }
 }

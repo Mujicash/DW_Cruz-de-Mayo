@@ -26,22 +26,17 @@ class OrdenCompraLN {
     /**
      * @throws Exception
      */
-    public function registrar(int $idUsuario, string $proveedor, array $productos) {
+    public function registrar(int $idUsuario, int $proveedor, array $productos) {
+        //Obtenemos la sucursal del usuario
         $userRepo = new DBUsuarioRepository();
         $userLN   = new GetUserBranch($userRepo);
         $branchId = $userLN->getId($idUsuario);
-        $provRepo = new DBProveedorRepository();
-        $provLN   = new ProveedorLN($provRepo);
-        $proveId  = $provLN->obtenerId($proveedor);
-        $ordenCom = new OrdenCompra($idUsuario, $branchId, $proveId);
+        //Registrar orden de compra
+        $ordenCom = new OrdenCompra($idUsuario, $branchId, $proveedor);
         $ordenId  = $this->repository->create($ordenCom);
 
-        $producRepo = new DBProductoRepository();
-        $producLN   = new ProductoLN($producRepo);
-
         foreach ($productos as $producto) {
-            $idProduc = $producLN->obtenerId($producto['nombre']);
-            $ordenDet = new DetalleCompra($ordenId, $idProduc, $producto['precio'], $producto['cantidad']);
+            $ordenDet = new DetalleCompra($ordenId, $producto['id'], $producto['precio'], $producto['cantidad']);
             $result   = $this->repository->createDetail($ordenDet);
 
             if (!$result) {
@@ -64,5 +59,35 @@ class OrdenCompraLN {
         return $this->repository->getDetail($id);
     }
 
+    /**
+     * @throws Exception
+     */
+    public function registrarGuia(int $idCompra, string $numGuia, string $motivo, string $fechaRec, $imagen) {
+        //Obtener fecha inicio
+        $fechaInicio = $this->repository->getDate($idCompra);
+        //dd($fechaInicio);
+        //Guardar imagen
+        $imagen = $this->cargarFoto($imagen, $numGuia);
+        //Registrar Guia
+        $this->repository->createGuide($numGuia, $motivo, $fechaInicio, $fechaRec, $imagen, $idCompra);
+
+        $productos = $this->repository->getProductsFromOrder($idCompra);
+        $sucursal = $this->repository->getBranch($idCompra);
+        //Aumentamos stock
+        foreach ($productos as $producto) {
+            $result = $this->repository->increaseStock($sucursal, $producto['id'], $producto["cantidad"]);
+
+            if (!$result) {
+                throw new Exception('Ha ocurrido un error al registrar el detalle de la compra', 500);
+            }
+        }
+    }
+
+    private function cargarFoto($file, $numGuia): string {
+        $nombre = time() . "-" . $numGuia . "." . $file->getClientOriginalExtension();
+        $file->move(base_path('/public/images/guias_remision'), $nombre);
+
+        return $nombre;
+    }
 
 }
