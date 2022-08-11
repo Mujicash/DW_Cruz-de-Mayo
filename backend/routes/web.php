@@ -20,6 +20,23 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
+    $router->post('/login', 'UsuariosController@login');
+});
+
+$router->group(['prefix' => 'api', 'middleware' => ['auth', 'admin']], function () use ($router) {
+
+});
+
+$router->group(['prefix' => 'api', 'middleware' => ['auth', 'jefe']], function () use ($router) {
+    //Ordenes de Compra
+    $router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
+});
+
+$router->group(['prefix' => 'api', 'middleware' => ['auth', 'encargado']], function () use ($router) {
+
+});
+
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
     $router->get('/sucursales', 'SucursalesController@index');
     $router->get('/sucursales/{id}', 'SucursalesController@show');
 
@@ -29,7 +46,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('/usuarios/{id}', 'UsuariosController@show');
     $router->put('/usuarios/{id}', 'UsuariosController@update');
     $router->delete('/usuarios/{id}', 'UsuariosController@destroy');
-    $router->post('/login', 'UsuariosController@login');
 
     //Productos
     $router->get('/productos', 'ProductosController@index');
@@ -54,7 +70,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     //Ordenes de Compra
     $router->post('/ordenesCompra', 'OrdenComprasController@store');
     $router->get('/ordenesCompra', 'OrdenComprasController@listarOrdenes');
-    $router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
+    //$router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
     $router->post('/ordenesCompra/guiaRemision', 'OrdenComprasController@registrarGuia');
 
     //Ordenes de Salida
