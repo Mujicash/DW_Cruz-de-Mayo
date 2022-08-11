@@ -124,7 +124,8 @@ class UsuariosController extends Controller {
         $usuario    = $request['usuario'];
         $password   = $request['password'];
         $repository = new DBUsuarioRepository();
-        $finder     = new UserFinder($repository);
+        $passwordMg = new PasswordManager();
+        $finder     = new UserFinder($repository, $passwordMg);
 
         try {
             $result     = $finder->checkRegisteredUser($usuario, $password);
