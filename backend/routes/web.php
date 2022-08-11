@@ -55,6 +55,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/ordenesCompra', 'OrdenComprasController@store');
     $router->get('/ordenesCompra', 'OrdenComprasController@listarOrdenes');
     $router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
+    $router->post('/ordenesCompra/guiaRemision', 'OrdenComprasController@registrarGuia');
 
     //Ordenes de Salida
     $router->post('/ordenesSalida', 'OrdenSalidasController@store');

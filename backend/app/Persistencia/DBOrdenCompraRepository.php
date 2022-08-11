@@ -86,7 +86,7 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
     /**
      * @throws Exception
      */
-    private function getProductsFromOrder(int $idOrden): array {
+    public function getProductsFromOrder(int $idOrden): array {
         $result    = DB::select('select CD.id_producto, PR.nombre, CD.cantidad, CD.precio
                         from orden_compras O, compra_detalles CD, productos PR
                         where O.id = :idOrden and CD.id_compra = O.id and PR.id = CD.id_producto order by CD.id_producto',
@@ -109,5 +109,63 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
         }
 
         return $productos;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getBranch(int $idCompra) {
+        $result = DB::select('select id_sucursal from orden_compras where id = :idCompra', ['idCompra' => $idCompra]);
+
+        if (empty($result)) {
+            throw new Exception('No existe orden de compra con el id ' . $idCompra, 404);
+        }
+
+        return $result[0]->id_sucursal;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function increaseStock(int $sucursal, int $id, int $cantidad): int {
+        return DB::update('update stocks set cantidad = cantidad + :cantidad
+            where id_sucursal = :sucursal and id_producto = :producto', [
+            'cantidad' => $cantidad,
+            'sucursal' => $sucursal,
+            'producto' => $id
+        ]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function getDate(int $idCompra) {
+        $result = DB::select('select fecha_compra from orden_compras where id = :idCompra', ['idCompra' => $idCompra]);
+
+        if (empty($result)) {
+            throw new Exception('No existe orden de compra con el id ' . $idCompra, 404);
+        }
+
+        //return date('d/m/Y', strtotime($result[0]->fecha_compra));
+        return $result[0]->fecha_compra;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function createGuide(string $numGuia, string $motivo, string $fechaInicio, string $fechaRec, string $imagen, int $idCompra) {
+        $result = DB::insert('insert into guia_remisiones (num_guia, motivo, fecha_inicio, fecha_recepcion, img, id_compra)
+            VALUES (:numGuia, :motivo, :fechaIni, NOW(), :imagen, :idCompra)', [
+            'numGuia'  => $numGuia,
+            'motivo'   => $motivo,
+            'fechaIni' => $fechaInicio,
+            //'fechaRec' => $fechaRec,
+            'imagen'   => $imagen,
+            'idCompra' => $idCompra
+        ]);
+
+        if (!$result) {
+            throw new Exception('Error en el registro de la guia de remision.', 500);
+        }
     }
 }
