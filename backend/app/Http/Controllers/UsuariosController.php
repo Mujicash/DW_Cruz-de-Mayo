@@ -17,7 +17,8 @@ class UsuariosController extends Controller {
 
     public function index() {
         $repository = new DBUsuarioRepository();
-        $finder     = new UserFinder($repository);
+        $passwordMg = new PasswordManager();
+        $finder     = new UserFinder($repository, $passwordMg);
 
         try {
             $result     = $finder->getAll();
@@ -61,7 +62,8 @@ class UsuariosController extends Controller {
 
     public function show(int $id) {
         $repository = new DBUsuarioRepository();
-        $finder     = new UserFinder($repository);
+        $passwordMg = new PasswordManager();
+        $finder     = new UserFinder($repository, $passwordMg);
 
         try {
             $result     = $finder->getById($id);
