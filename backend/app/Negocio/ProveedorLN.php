@@ -40,8 +40,8 @@ class ProveedorLN {
     /**
      * @throws Exception
      */
-    public function obtener(string $nombre): array {
-        return $this->repository->getByName($nombre);
+    public function obtener(int $id): array {
+        return $this->repository->getById($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class ProveedorLN {
         $result = $this->repository->update($proveedor);
 
         if(!$result) {
-            throw new SupplierNotFoundException('No se encontro al proveedor con id '. $id, 404);
+            throw new SupplierNotFoundException('No se encontro al proveedor con id '. $id, 204);
         }
     }
 
@@ -63,7 +63,7 @@ class ProveedorLN {
         $result = $this->repository->delete($id);
 
         if(!$result) {
-            throw new SupplierNotFoundException('No se encontro al proveedor con id '. $id, 404);
+            throw new SupplierNotFoundException('No se encontro al proveedor con id '. $id, 204);
         }
     }
 

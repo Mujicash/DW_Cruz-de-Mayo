@@ -50,12 +50,12 @@ class ProveedoresController extends Controller {
         return response()->json($message)->setStatusCode($statusCode);
     }
 
-    public function show(string $nombre) {
+    public function show(int $id) {
         $repositorio = new DBProveedorRepository();
         $proveedorLN = new ProveedorLN($repositorio);
 
         try {
-            $result     = $proveedorLN->obtener($nombre);
+            $result     = $proveedorLN->obtener($id);
             $statusCode = 200;
         }
         catch (Exception $e) {

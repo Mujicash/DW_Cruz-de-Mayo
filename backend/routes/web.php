@@ -20,63 +20,60 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->post('/login', 'UsuariosController@login');
+    $router->get('/login', 'UsuariosController@login');
 });
 
 $router->group(['prefix' => 'api', 'middleware' => ['auth', 'admin']], function () use ($router) {
-
-});
-
-$router->group(['prefix' => 'api', 'middleware' => ['auth', 'jefe']], function () use ($router) {
-    //Ordenes de Compra
-    $router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
-});
-
-$router->group(['prefix' => 'api', 'middleware' => ['auth', 'encargado']], function () use ($router) {
-
-});
-
-$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+    //Sucursales
     $router->get('/sucursales', 'SucursalesController@index');
-    $router->get('/sucursales/{id}', 'SucursalesController@show');
-
     //Usuarios
     $router->post('/usuarios', 'UsuariosController@store');
     $router->get('/usuarios', 'UsuariosController@index');
     $router->get('/usuarios/{id}', 'UsuariosController@show');
     $router->put('/usuarios/{id}', 'UsuariosController@update');
     $router->delete('/usuarios/{id}', 'UsuariosController@destroy');
-
     //Productos
-    $router->get('/productos', 'ProductosController@index');
     $router->post('/productos', 'ProductosController@store');
-    $router->get('/productos/{nombre}', 'ProductosController@show');
     $router->put('/productos/{id}', 'ProductosController@update');
     $router->delete('/productos/{id}', 'ProductosController@destroy');
-
-    //Formatos
-    $router->get('/formatos', 'FormatosController@index');
-    $router->post('/formatos', 'FormatosController@store');
-    //$router->get('/formatos/{id}', 'FormatosController@show');
-    $router->get('/formatos/{name}', 'FormatosController@getByName');
-
     //Proveedores
-    $router->get('/proveedores', 'ProveedoresController@index');
     $router->post('/proveedores', 'ProveedoresController@store');
-    $router->get('/proveedores/{nombre}', 'ProveedoresController@show');
     $router->put('/proveedores/{id}', 'ProveedoresController@update');
     $router->delete('/proveedores/{id}', 'ProveedoresController@destroy');
+    //Formatos
+    $router->post('/formatos', 'FormatosController@store');
+});
 
+$router->group(['prefix' => 'api', 'middleware' => ['auth', 'jefe']], function () use ($router) {
     //Ordenes de Compra
     $router->post('/ordenesCompra', 'OrdenComprasController@store');
     $router->get('/ordenesCompra', 'OrdenComprasController@listarOrdenes');
-    //$router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
+    $router->get('/ordenesCompra/{id}', 'OrdenComprasController@show');
     $router->post('/ordenesCompra/guiaRemision', 'OrdenComprasController@registrarGuia');
+});
 
+$router->group(['prefix' => 'api', 'middleware' => ['auth', 'encargado']], function () use ($router) {
     //Ordenes de Salida
     $router->post('/ordenesSalida', 'OrdenSalidasController@store');
     $router->get('/ordenesSalida', 'OrdenSalidasController@listarOrdenes');
     $router->get('/ordenesSalida/{id}', 'OrdenSalidasController@show');
+});
+
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
+    //Sucursales
+    $router->get('/sucursales/{id}', 'SucursalesController@show');
+    //Productos
+    $router->get('/productos', 'ProductosController@index');
+    $router->get('/productos/{id}', 'ProductosController@show');
+    //Formatos
+    $router->get('/formatos', 'FormatosController@index');
+    //$router->get('/formatos/{id}', 'FormatosController@show');
+    $router->get('/formatos/{name}', 'FormatosController@getByName');
+    //Proveedores
+    $router->get('/proveedores', 'ProveedoresController@index');
+    $router->get('/proveedores/{id}', 'ProveedoresController@show');
+    //Stock
+    $router->get('/stock', 'StockController@index');
 });
 
 $router->get('/test', function () {

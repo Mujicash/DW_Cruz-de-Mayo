@@ -46,7 +46,7 @@ class DBOrdenSalidaRepository implements OrdenSalidaRepository {
         $ordenes = array();
 
         if (empty($result)) {
-            throw new Exception('No existen ordenes de salida.', 404);
+            throw new Exception('No existen ordenes de salida.', 204);
         }
 
         foreach ($result as $item) {
@@ -66,7 +66,7 @@ class DBOrdenSalidaRepository implements OrdenSalidaRepository {
                              ['idOrden' => $id]);
 
         if (empty($result)) {
-            throw new Exception('No existe orden de salida con el id ' . $id, 404);
+            throw new Exception('No existe orden de salida con el id ' . $id, 204);
         }
 
         $fecha     = date('d/m/Y', strtotime($result[0]->fecha));
@@ -86,7 +86,7 @@ class DBOrdenSalidaRepository implements OrdenSalidaRepository {
         $productos = array();
 
         if (empty($result)) {
-            throw new Exception('No existen el detalle de la orden de salida con el id ' . $idOrden, 404);
+            throw new Exception('No existen el detalle de la orden de salida con el id ' . $idOrden, 204);
         }
 
         foreach ($result as $i) {

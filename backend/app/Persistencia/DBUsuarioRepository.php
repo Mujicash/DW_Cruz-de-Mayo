@@ -4,6 +4,7 @@ namespace App\Persistencia;
 
 
 use App\Models\Usuario;
+use App\Models\UsuarioDTO;
 use App\Models\UsuarioRepository;
 use App\Exceptions\UserNotFoundException;
 use Exception;
@@ -32,19 +33,21 @@ class DBUsuarioRepository implements UsuarioRepository {
     /**
      * @throws UserNotFoundException
      */
-    public function validate(string $usuario, string $password): ?Usuario {
-        $result = DB::select('select * from usuarios where usuario = :usuario and pasword = :password', [
+    public function validate(string $usuario, string $password): UsuarioDTO {
+        $result = DB::select("select u.id, concat(u.nombre, ' ', u.apellido_pat, ' ', u.apellido_mat) Nombre_completo, t.tipo, s.nombre, s.direccion
+            from usuarios u inner join sucursales s on u.id_sucursal = s.id inner join tipo_usuarios t on u.id_tipo = t.id
+            where u.usuario = :usuario and u.pasword = :password", [
             'usuario'  => $usuario,
             'password' => $password
         ]);
 
         if (empty($result)) {
-            throw new UserNotFoundException('User is not found with this credentials.', 404);
+            throw new UserNotFoundException('User is not found with this credentials.', 204);
         }
 
-        return new Usuario($result[0]->id, $result[0]->usuario, $result[0]->nombre,
-                           $result[0]->apellido_pat, $result[0]->apellido_mat,
-                           $result[0]->pasword, $result[0]->id_tipo, $result[0]->id_sucursal);
+        return new UsuarioDTO($result[0]->id, $result[0]->Nombre_completo, $usuario, $result[0]->tipo,
+                              $result[0]->nombre,
+                              $result[0]->direccion);
     }
 
     /**
@@ -54,7 +57,7 @@ class DBUsuarioRepository implements UsuarioRepository {
         $result = DB::select('SELECT * FROM usuarios WHERE id = :id', ['id' => $idUsuario]);
 
         if (empty($result)) {
-            throw new UserNotFoundException('User is not found by id ' . $idUsuario, 404);
+            throw new UserNotFoundException('User is not found by id ' . $idUsuario, 204);
         }
         return new Usuario($result[0]->id, $result[0]->usuario, $result[0]->nombre,
                            $result[0]->apellido_pat, $result[0]->apellido_mat,
@@ -65,16 +68,16 @@ class DBUsuarioRepository implements UsuarioRepository {
      * @throws UserNotFoundException
      */
     public function getAll(): array {
-        $result   = DB::select('SELECT * FROM usuarios');
+        $result   = DB::select("select u.id, concat(u.nombre, ' ', u.apellido_pat, ' ', u.apellido_mat) as nombre, u.usuario, t.tipo, s.nombre sucursal
+                    from usuarios u inner join sucursales s on u.id_sucursal = s.id inner join tipo_usuarios t on u.id_tipo = t.id");
         $usuarios = array();
 
         if (empty($result)) {
-            throw new UserNotFoundException('No user was found', 404);
+            throw new UserNotFoundException('No user was found', 204);
         }
 
         foreach ($result as $i) {
-            $usuario    = new Usuario($i->id, $i->usuario, $i->nombre, $i->apellido_pat, $i->apellido_mat,
-                                      $i->pasword, $i->id_tipo, $i->id_sucursal);
+            $usuario    = new UsuarioDTO($i->id, $i->nombre, $i->usuario, $i->tipo, $i->sucursal);
             $usuarios[] = $usuario;
         }
 

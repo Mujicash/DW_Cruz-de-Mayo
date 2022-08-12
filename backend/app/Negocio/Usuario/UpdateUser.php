@@ -41,7 +41,7 @@ class UpdateUser {
         $result  = $this->repository->update($usuario);
 
         if (!$result) {
-            throw new UserNotFoundException('No user was found with id ' . $id, 404);
+            throw new UserNotFoundException('No user was found with id ' . $id, 204);
         }
     }
 

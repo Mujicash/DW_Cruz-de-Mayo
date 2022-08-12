@@ -4,6 +4,7 @@ namespace App\Persistencia;
 
 use App\Exceptions\ProductNotFoundException;
 use App\Models\Producto;
+use App\Models\ProductoDTO;
 use App\Models\ProductoRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +29,7 @@ class DBProductoRepository implements ProductoRepository {
         $productos = array();
 
         if (empty($result)) {
-            throw new ProductNotFoundException('There are no products with the name ' . $nombre, 404);
+            throw new ProductNotFoundException('There are no products with the name ' . $nombre, 204);
         }
 
         foreach ($result as $i) {
@@ -58,16 +59,15 @@ class DBProductoRepository implements ProductoRepository {
      * @throws ProductNotFoundException
      */
     public function getAll(): array {
-        $result    = DB::select('SELECT * FROM productos');
+        $result    = DB::select('select p.id, p.nombre, p.laboratorio, f.formato from productos p inner join formatos f on p.id_unidad = f.id');
         $productos = array();
 
         if (empty($result)) {
-            throw new ProductNotFoundException('No product was found', 404);
+            throw new ProductNotFoundException('No product was found', 204);
         }
 
         foreach ($result as $i) {
-            $producto    = new Producto($i->id, $i->nombre, $i->laboratorio, $i->precio_venta, $i->descripcion,
-                                        $i->id_unidad);
+            $producto    = new ProductoDTO($i->id, $i->nombre, $i->formato, $i->laboratorio);
             $productos[] = $producto;
         }
 
@@ -98,7 +98,7 @@ class DBProductoRepository implements ProductoRepository {
         $result = DB::select('select id from productos where nombre = :nombre', ['nombre' => $nombre]);
 
         if (empty($result)) {
-            throw new ProductNotFoundException('No product was found', 404);
+            throw new ProductNotFoundException('No product was found', 204);
         }
 
         return $result[0]->id;

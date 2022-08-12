@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class DBAutenticacionRepository implements AutenticacionRepository {
 
-    public function checkToken(string $token): bool {
-        $result = DB::select('select count(*) logeado from usuarios where api_token = :token', ['token' => $token]);
+    public function checkToken(int $id, string $token): bool {
+        $result = DB::select('select count(*) logeado from usuarios where id = :id and api_token = :token', ['id' => $id, 'token' => $token]);
 
         return ($result[0]->logeado == 1);
     }

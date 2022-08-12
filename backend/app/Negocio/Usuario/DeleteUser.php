@@ -25,7 +25,7 @@ class DeleteUser {
         $result = $this->repository->delete($id);
 
         if (!$result) {
-            throw new UserNotFoundException('No user was found with id ' . $id, 404);
+            throw new UserNotFoundException('No user was found with id ' . $id, 204);
         }
     }
 

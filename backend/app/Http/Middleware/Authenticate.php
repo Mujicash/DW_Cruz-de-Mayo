@@ -45,8 +45,9 @@ class Authenticate
         $autRepo = new DBAutenticacionRepository();
         $autenLN = new AutenticacionLN($autRepo);
         $token   = $request->bearerToken();
+        $id      = $request['id_usuario'];
 
-        if (!$autenLN->verificarToken($token)) {
+        if (!$autenLN->verificarToken($id, $token)) {
             return response(['message' => 'Unauthorized.'], 401);
         }
 

@@ -15,7 +15,7 @@ class JefeAlmacenMiddleware {
      */
     public function handle(Request $request, Closure $next) {
 
-        if (!isset($request['id_tipo']) || $request['id_tipo'] !== 2) {
+        if (!isset($request['tipo']) || $request['tipo'] !== 'Jefe Almacen') {
             return response(['success' => false, 'message' => 'No tienes privilegios de Jefe de Almacen.'], 401);
         }
 
