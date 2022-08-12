@@ -8,7 +8,7 @@ interface UsuarioRepository {
 
     public function create(Usuario $usuario): bool;
 
-    public function validate(string $usuario, string $password): ?Usuario;
+    public function validate(string $usuario, string $password): UsuarioDTO;
 
     public function getById(int $idUsuario): ?Usuario;
 

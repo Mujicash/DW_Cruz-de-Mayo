@@ -33,8 +33,8 @@ class ProductoLN {
         }
     }
 
-    public function obtener(string $nombre): array {
-        return $this->repository->getByName($nombre);
+    public function obtener(int $id): Producto {
+        return $this->repository->getById($id);
     }
 
     public function obtenerTodos(): array {
@@ -50,7 +50,7 @@ class ProductoLN {
         $result   = $this->repository->update($producto);
 
         if (!$result) {
-            throw new ProductNotFoundException("Product is not found with id " . $id, 404);
+            throw new ProductNotFoundException("Product is not found with id " . $id, 204);
         }
     }
 

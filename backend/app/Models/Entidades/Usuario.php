@@ -15,7 +15,6 @@ class Usuario implements JsonSerializable {
     private string $password;
     private int    $tipo;
     private int    $sucursal;
-    private string $apiToken;
 
     /**
      * @param int $id
@@ -36,20 +35,6 @@ class Usuario implements JsonSerializable {
         $this->password        = $password;
         $this->tipo            = $tipo;
         $this->sucursal        = $sucursal;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiToken(): string {
-        return $this->apiToken;
-    }
-
-    /**
-     * @param string $apiToken
-     */
-    public function setApiToken(string $apiToken): void {
-        $this->apiToken = $apiToken;
     }
 
     /**
@@ -111,8 +96,7 @@ class Usuario implements JsonSerializable {
             'apellidoMaterno' => $this->apellidoMaterno,
             'password'        => $this->password,
             'tipo'            => $this->tipo,
-            'sucursal'        => $this->sucursal,
-            'apiToken'        => $this->apiToken
+            'sucursal'        => $this->sucursal
         ];
     }
 }

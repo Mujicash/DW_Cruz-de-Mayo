@@ -23,12 +23,12 @@ class DBProveedorRepository implements ProveedorRepository {
     /**
      * @throws SupplierNotFoundException
      */
-    public function getByName(string $nombre): array {
-        $result      = DB::select('SELECT * FROM proveedores WHERE nombre like :nombre', ['nombre' => $nombre . '%']);
+    public function getById(int $id): array {
+        $result      = DB::select('SELECT * FROM proveedores WHERE id = :id', ['id' => $id]);
         $proveedores = array();
 
         if (empty($result)) {
-            throw new SupplierNotFoundException('There are not suppliers with name ' . $nombre, 404);
+            throw new SupplierNotFoundException('There are not suppliers with id ' . $id, 204);
         }
 
         foreach ($result as $i) {
@@ -64,7 +64,7 @@ class DBProveedorRepository implements ProveedorRepository {
         $proveedores = array();
 
         if (empty($result)) {
-            throw new SupplierNotFoundException('No suppliers was found.', 404);
+            throw new SupplierNotFoundException('No suppliers was found.', 204);
         }
 
         foreach ($result as $i) {
@@ -82,7 +82,7 @@ class DBProveedorRepository implements ProveedorRepository {
         $result = DB::select('SELECT id FROM proveedores WHERE nombre = :nombre', ['nombre' => $proveedor]);
 
         if (empty($result)) {
-            throw new SupplierNotFoundException('No suppliers was found.', 404);
+            throw new SupplierNotFoundException('No suppliers was found.', 204);
         }
 
         return $result[0]->id;

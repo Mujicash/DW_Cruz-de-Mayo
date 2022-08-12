@@ -50,12 +50,12 @@ class ProductosController extends Controller {
         return response()->json(['message' => $message])->setStatusCode($statusCode);
     }
 
-    public function show(string $nombre) {
+    public function show(int $id) {
         $repositorio = new DBProductoRepository();
         $productoLN  = new ProductoLN($repositorio);
 
         try {
-            $result     = $productoLN->obtener($nombre);
+            $result     = $productoLN->obtener($id);
             $statusCode = 200;
         }
         catch (Exception $e) {

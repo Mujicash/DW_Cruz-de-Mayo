@@ -26,7 +26,7 @@ class UsuariosController extends Controller {
         }
         catch (Exception $e) {
             $result     = array('Error' => $e->getMessage());
-            $statusCode = ($e instanceof UserNotFoundException) ? 404 : 500;
+            $statusCode = ($e instanceof UserNotFoundException) ? 204 : 500;
         }
 
         return response()->json($result)->setStatusCode($statusCode);
@@ -71,7 +71,7 @@ class UsuariosController extends Controller {
         }
         catch (Exception $e) {
             $result     = array('Error' => $e->getMessage());
-            $statusCode = ($e instanceof UserNotFoundException) ? 404 : 500;
+            $statusCode = ($e instanceof UserNotFoundException) ? 204 : 500;
         }
 
         return response()->json($result)->setStatusCode($statusCode);
@@ -99,7 +99,7 @@ class UsuariosController extends Controller {
         }
         catch (Exception $e) {
             $message    = 'Error: ' . $e->getMessage();
-            $statusCode = ($e instanceof UserNotFoundException) ? 404 : 500;
+            $statusCode = ($e instanceof UserNotFoundException) ? 204 : 500;
         }
 
         return response()->json(['message' => $message])->setStatusCode($statusCode);
@@ -116,7 +116,7 @@ class UsuariosController extends Controller {
         }
         catch (Exception $e) {
             $message    = 'Error: ' . $e->getMessage();
-            $statusCode = ($e instanceof UserNotFoundException) ? 404 : 500;
+            $statusCode = ($e instanceof UserNotFoundException) ? 204 : 500;
         }
 
         return response()->json(['message' => $message])->setStatusCode($statusCode);
@@ -135,7 +135,7 @@ class UsuariosController extends Controller {
         }
         catch (Exception $e) {
             $result     = array('Error' => $e->getMessage());
-            $statusCode = ($e instanceof UserNotFoundException) ? 404 : 500;
+            $statusCode = ($e instanceof UserNotFoundException) ? 204 : 500;
         }
 
         return response()->json($result)->setStatusCode($statusCode);

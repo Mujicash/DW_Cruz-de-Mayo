@@ -6,5 +6,5 @@ use Exception;
 
 class ProductNotFoundException extends Exception
 {
-    protected $code = 404;
+    protected $code = 204;
 }

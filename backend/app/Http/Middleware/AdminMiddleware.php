@@ -18,7 +18,7 @@ class AdminMiddleware {
      */
     public function handle(Request $request, Closure $next) {
         //dd($request['id_tipo']);
-        if (!isset($request['id_tipo']) || $request['id_tipo'] !== 1) {
+        if (!isset($request['tipo']) || $request['tipo'] !== 'Administrador') {
             return response(['success' => false, 'message' => 'No tienes privilegios de Administriador.'], 401);
         }
 

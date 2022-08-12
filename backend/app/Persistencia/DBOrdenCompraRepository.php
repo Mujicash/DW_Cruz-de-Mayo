@@ -48,12 +48,12 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
         $ordenes = array();
 
         if (empty($result)) {
-            throw new Exception('No existen ordenes de compra', 404);
+            throw new Exception('No existen ordenes de compra', 204);
         }
 
         foreach ($result as $item) {
             $fecha     = date('d/m/Y', strtotime($item->fecha_compra));
-            $estado    = ($item->estado == 0) ? 'Pendiente' : 'Entregado';
+            $estado    = ($item->estado == 0) ? 'No Entregado' : 'Entregado';
             $total     = round($item->total, 1);
             $orden     = new OrdenCompraDTO($item->id, $fecha, $item->ruc, $total, $estado);
             $ordenes[] = $orden;
@@ -71,11 +71,11 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
                     where O.id = :idOrden and P.id = O.id_proveedor', ['idOrden' => $idOrden]);
 
         if (empty($result)) {
-            throw new Exception('No existe orden de compra con el id ' . $idOrden, 404);
+            throw new Exception('No existe orden de compra con el id ' . $idOrden, 204);
         }
 
         $fecha           = date('d/m/Y', strtotime($result[0]->fecha_compra));
-        $estado          = ($result[0]->estado == 0) ? 'Pendiente' : 'Entregado';
+        $estado          = ($result[0]->estado == 0) ? 'No Entregado' : 'Entregado';
         $nombreProveedor = $result[0]->nombre;
         $rucProveedor    = $result[0]->ruc;
         $productos       = $this->getProductsFromOrder($idOrden);
@@ -94,7 +94,7 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
         $productos = array();
 
         if (empty($result)) {
-            throw new Exception('No existen el detalle de la orden de compra con el id ' . $idOrden, 404);
+            throw new Exception('No existen el detalle de la orden de compra con el id ' . $idOrden, 204);
         }
 
         foreach ($result as $i) {
@@ -118,7 +118,7 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
         $result = DB::select('select id_sucursal from orden_compras where id = :idCompra', ['idCompra' => $idCompra]);
 
         if (empty($result)) {
-            throw new Exception('No existe orden de compra con el id ' . $idCompra, 404);
+            throw new Exception('No existe orden de compra con el id ' . $idCompra, 204);
         }
 
         return $result[0]->id_sucursal;
@@ -143,7 +143,7 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
         $result = DB::select('select fecha_compra from orden_compras where id = :idCompra', ['idCompra' => $idCompra]);
 
         if (empty($result)) {
-            throw new Exception('No existe orden de compra con el id ' . $idCompra, 404);
+            throw new Exception('No existe orden de compra con el id ' . $idCompra, 204);
         }
 
         //return date('d/m/Y', strtotime($result[0]->fecha_compra));

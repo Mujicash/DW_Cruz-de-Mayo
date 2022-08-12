@@ -16,8 +16,8 @@ class AutenticacionLN {
         $this->repository->createToken($id, $token);
     }
 
-    public function verificarToken(string $token): bool {
-        return $this->repository->checkToken($token);
+    public function verificarToken(int $id, string $token): bool {
+        return $this->repository->checkToken($id, $token);
     }
 
 }

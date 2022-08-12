@@ -35,7 +35,7 @@ class DBSucursalRepository implements SucursalRepository {
         $sucursales = array();
 
         if (empty($result)) {
-            throw new Exception('No se encontro ninguna sucursal', 404);
+            throw new Exception('No se encontro ninguna sucursal', 204);
         }
 
         foreach ($result as $i) {

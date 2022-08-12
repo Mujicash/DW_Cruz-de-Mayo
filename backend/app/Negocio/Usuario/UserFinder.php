@@ -5,6 +5,7 @@ namespace App\Negocio\Usuario;
 use App\Exceptions\UserNotFoundException;
 use App\Models\PasswordHashLib;
 use App\Models\Usuario;
+use App\Models\UsuarioDTO;
 use App\Models\UsuarioRepository;
 use App\Negocio\AutenticacionLN;
 use App\Persistencia\DBAutenticacionRepository;
@@ -44,7 +45,7 @@ class UserFinder {
     /**
      * @throws Exception
      */
-    public function checkRegisteredUser(string $username, string $password): Usuario {
+    public function checkRegisteredUser(string $username, string $password): UsuarioDTO {
         //hashing password
         $password = $this->passwordManager->hash($password);
         $usuario  = $this->repository->validate($username, $password);
@@ -52,7 +53,8 @@ class UserFinder {
         $autRepo = new DBAutenticacionRepository();
         $autenLN = new AutenticacionLN($autRepo);
 
-        $token = $this->passwordManager->hash(Str::random(150) . $usuario->getUsuario() . $usuario->getPassword());
+        //dd($usuario->jsonSerialize());
+        $token = $this->passwordManager->hash(Str::random(150) . $username . $password);
         $autenLN->crearToken($usuario->getId(), $token);
         $usuario->setApiToken($token);
 
