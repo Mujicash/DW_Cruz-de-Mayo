@@ -39,7 +39,7 @@ class UsuariosController extends Controller {
             'apellidoPaterno' => $request->apellidoPaterno,
             'apellidoMaterno' => $request->apellidoMaterno,
             'password'        => $request->password,
-            'tipo'            => $request->tipo,
+            'tipo'            => $request->tipo_usuario,
             'sucursal'        => $request->sucursal
         ];
 
@@ -57,7 +57,7 @@ class UsuariosController extends Controller {
             $statusCode = $e->getCode();
         }
 
-        return response()->json(['message' => $message])->setStatusCode($statusCode);
+        return response()->json(['message' => $message])->setStatusCode(500);
     }
 
     public function show(int $id) {
