@@ -2,12 +2,10 @@
 
 namespace App\Negocio;
 
-use App\Models\DetalleCompra;
-use App\Models\DetalleSalida;
-use App\Models\OrdenSalida;
-use App\Models\OrdenSalidaRepository;
+use App\Models\Entidades\DetalleSalida;
+use App\Models\Entidades\OrdenSalida;
+use App\Models\Repositorios\OrdenSalidaRepository;
 use App\Negocio\Usuario\GetUserBranch;
-use App\Persistencia\DBProductoRepository;
 use App\Persistencia\DBUsuarioRepository;
 use Exception;
 

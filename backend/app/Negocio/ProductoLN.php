@@ -3,8 +3,8 @@
 namespace App\Negocio;
 
 use App\Exceptions\ProductNotFoundException;
-use App\Models\Producto;
-use App\Models\ProductoRepository;
+use App\Models\Entidades\Producto;
+use App\Models\Repositorios\ProductoRepository;
 use App\Persistencia\DBFormatoRepository;
 use Exception;
 

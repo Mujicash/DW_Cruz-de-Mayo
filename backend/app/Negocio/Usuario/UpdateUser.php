@@ -3,9 +3,9 @@
 namespace App\Negocio\Usuario;
 
 use App\Exceptions\UserNotFoundException;
+use App\Models\Entidades\Usuario;
 use App\Models\PasswordHashLib;
-use App\Models\Usuario;
-use App\Models\UsuarioRepository;
+use App\Models\Repositorios\UsuarioRepository;
 use App\Persistencia\DBSucursalRepository;
 use App\Persistencia\DBTipoUsuarioRepository;
 use Exception;

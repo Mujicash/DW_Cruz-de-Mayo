@@ -2,13 +2,11 @@
 
 namespace App\Negocio;
 
-use App\Models\DetalleCompraDTO;
-use App\Models\OrdenCompraRepository;
-use App\Models\DetalleCompra;
-use App\Models\OrdenCompra;
+use App\Models\DTOs\DetalleCompraDTO;
+use App\Models\Entidades\DetalleCompra;
+use App\Models\Entidades\OrdenCompra;
+use App\Models\Repositorios\OrdenCompraRepository;
 use App\Negocio\Usuario\GetUserBranch;
-use App\Persistencia\DBProductoRepository;
-use App\Persistencia\DBProveedorRepository;
 use App\Persistencia\DBUsuarioRepository;
 use Exception;
 

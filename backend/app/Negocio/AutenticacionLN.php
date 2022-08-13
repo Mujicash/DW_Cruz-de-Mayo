@@ -2,7 +2,7 @@
 
 namespace App\Negocio;
 
-use App\Models\AutenticacionRepository;
+use App\Models\Repositorios\AutenticacionRepository;
 
 class AutenticacionLN {
 

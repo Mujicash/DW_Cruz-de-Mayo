@@ -2,8 +2,8 @@
 
 namespace App\Persistencia;
 
-use App\Models\StockDTO;
-use App\Models\StockRepository;
+use App\Models\DTOs\StockDTO;
+use App\Models\Repositorios\StockRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

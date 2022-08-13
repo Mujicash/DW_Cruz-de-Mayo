@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Repositorios;
+
+use App\Models\Entidades\Producto;
 
 interface ProductoRepository {
 

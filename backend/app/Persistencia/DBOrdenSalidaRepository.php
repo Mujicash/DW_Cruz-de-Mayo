@@ -2,11 +2,11 @@
 
 namespace App\Persistencia;
 
-use App\Models\DetalleSalida;
-use App\Models\DetalleSalidaDTO;
-use App\Models\OrdenSalida;
-use App\Models\OrdenSalidaDTO;
-use App\Models\OrdenSalidaRepository;
+use App\Models\DTOs\DetalleSalidaDTO;
+use App\Models\DTOs\OrdenSalidaDTO;
+use App\Models\Entidades\DetalleSalida;
+use App\Models\Entidades\OrdenSalida;
+use App\Models\Repositorios\OrdenSalidaRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

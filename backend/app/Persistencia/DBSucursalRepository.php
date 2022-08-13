@@ -2,8 +2,8 @@
 
 namespace App\Persistencia;
 
-use App\Models\Sucursal;
-use App\Models\SucursalRepository;
+use App\Models\Entidades\Sucursal;
+use App\Models\Repositorios\SucursalRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

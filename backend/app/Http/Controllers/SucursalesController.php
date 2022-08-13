@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sucursal;
-use App\Models\SucursalRepository;
 use App\Negocio\SucursalLN;
 use App\Persistencia\DBSucursalRepository;
 use Exception;

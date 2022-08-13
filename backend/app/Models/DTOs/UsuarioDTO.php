@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\DTOs;
 
 use JsonSerializable;
 
@@ -23,12 +23,12 @@ class UsuarioDTO implements JsonSerializable {
      * @param string $direccion
      */
     public function __construct(int $id, string $nombre, string $usuario, string $tipoUsuario, string $sucursal, string $direccion = '') {
-        $this->id        = $id;
-        $this->nombre    = $nombre;
-        $this->usuario   = $usuario;
-        $this->sucursal  = $sucursal;
-        $this->direccion = $direccion;
-        $this->tipoUsuario  = $tipoUsuario;
+        $this->id          = $id;
+        $this->nombre      = $nombre;
+        $this->usuario     = $usuario;
+        $this->sucursal    = $sucursal;
+        $this->direccion   = $direccion;
+        $this->tipoUsuario = $tipoUsuario;
     }
 
     /**
