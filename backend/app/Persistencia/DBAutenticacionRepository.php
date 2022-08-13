@@ -2,7 +2,7 @@
 
 namespace App\Persistencia;
 
-use App\Models\AutenticacionRepository;
+use App\Models\Repositorios\AutenticacionRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

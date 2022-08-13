@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Models;
-
-use DateTime;
+namespace App\Models\Entidades;
 
 class OrdenCompra {
 

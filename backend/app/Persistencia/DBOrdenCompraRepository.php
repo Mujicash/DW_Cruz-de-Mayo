@@ -2,11 +2,11 @@
 
 namespace App\Persistencia;
 
-use App\Models\DetalleCompraDTO;
-use App\Models\OrdenCompraDTO;
-use App\Models\OrdenCompraRepository;
-use App\Models\DetalleCompra;
-use App\Models\OrdenCompra;
+use App\Models\DTOs\DetalleCompraDTO;
+use App\Models\DTOs\OrdenCompraDTO;
+use App\Models\Entidades\DetalleCompra;
+use App\Models\Entidades\OrdenCompra;
+use App\Models\Repositorios\OrdenCompraRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

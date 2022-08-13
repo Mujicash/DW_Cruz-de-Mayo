@@ -3,8 +3,7 @@
 namespace App\Negocio\Usuario;
 
 use App\Exceptions\UserNotFoundException;
-use App\Models\UsuarioRepository;
-use Exception;
+use App\Models\Repositorios\UsuarioRepository;
 
 class DeleteUser {
 

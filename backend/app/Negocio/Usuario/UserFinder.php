@@ -2,11 +2,10 @@
 
 namespace App\Negocio\Usuario;
 
-use App\Exceptions\UserNotFoundException;
+use App\Models\DTOs\UsuarioDTO;
+use App\Models\Entidades\Usuario;
 use App\Models\PasswordHashLib;
-use App\Models\Usuario;
-use App\Models\UsuarioDTO;
-use App\Models\UsuarioRepository;
+use App\Models\Repositorios\UsuarioRepository;
 use App\Negocio\AutenticacionLN;
 use App\Persistencia\DBAutenticacionRepository;
 use Exception;

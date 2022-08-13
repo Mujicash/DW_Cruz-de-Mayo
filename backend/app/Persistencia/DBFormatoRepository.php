@@ -3,8 +3,8 @@
 namespace App\Persistencia;
 
 use App\Exceptions\FormatNotFoundException;
-use App\Models\Formato;
-use App\Models\FormatoRepository;
+use App\Models\Entidades\Formato;
+use App\Models\Repositorios\FormatoRepository;
 use Illuminate\Support\Facades\DB;
 
 class DBFormatoRepository implements FormatoRepository {

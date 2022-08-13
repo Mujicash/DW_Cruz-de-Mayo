@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\FormatNotFoundException;
-use App\Models\Formato;
 use App\Negocio\FormatoLN;
 use App\Persistencia\DBFormatoRepository;
 use Exception;

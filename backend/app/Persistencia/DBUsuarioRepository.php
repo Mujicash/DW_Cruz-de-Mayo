@@ -3,10 +3,10 @@
 namespace App\Persistencia;
 
 
-use App\Models\Usuario;
-use App\Models\UsuarioDTO;
-use App\Models\UsuarioRepository;
 use App\Exceptions\UserNotFoundException;
+use App\Models\DTOs\UsuarioDTO;
+use App\Models\Entidades\Usuario;
+use App\Models\Repositorios\UsuarioRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

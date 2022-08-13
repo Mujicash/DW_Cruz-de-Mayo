@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Repositorios;
+
+use App\Models\Entidades\DetalleSalida;
+use App\Models\Entidades\OrdenSalida;
 
 interface OrdenSalidaRepository {
 

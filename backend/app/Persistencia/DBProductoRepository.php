@@ -3,9 +3,9 @@
 namespace App\Persistencia;
 
 use App\Exceptions\ProductNotFoundException;
-use App\Models\Producto;
-use App\Models\ProductoDTO;
-use App\Models\ProductoRepository;
+use App\Models\DTOs\ProductoDTO;
+use App\Models\Entidades\Producto;
+use App\Models\Repositorios\ProductoRepository;
 use Illuminate\Support\Facades\DB;
 
 class DBProductoRepository implements ProductoRepository {

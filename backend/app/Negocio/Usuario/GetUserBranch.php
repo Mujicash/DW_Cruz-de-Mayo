@@ -2,7 +2,7 @@
 
 namespace App\Negocio\Usuario;
 
-use App\Models\UsuarioRepository;
+use App\Models\Repositorios\UsuarioRepository;
 use Exception;
 
 class GetUserBranch {

@@ -2,7 +2,7 @@
 
 namespace App\Negocio;
 
-use App\Models\SucursalRepository;
+use App\Models\Repositorios\SucursalRepository;
 use Exception;
 
 class SucursalLN {

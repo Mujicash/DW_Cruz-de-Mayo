@@ -3,8 +3,8 @@
 namespace App\Negocio;
 
 use App\Exceptions\SupplierNotFoundException;
-use App\Models\Proveedor;
-use App\Models\ProveedorRepository;
+use App\Models\Entidades\Proveedor;
+use App\Models\Repositorios\ProveedorRepository;
 use Exception;
 
 class ProveedorLN {

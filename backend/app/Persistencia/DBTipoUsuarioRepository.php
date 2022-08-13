@@ -2,7 +2,7 @@
 
 namespace App\Persistencia;
 
-use App\Models\TipoUsuarioRepository;
+use App\Models\Repositorios\TipoUsuarioRepository;
 use Illuminate\Support\Facades\DB;
 
 class DBTipoUsuarioRepository implements TipoUsuarioRepository {

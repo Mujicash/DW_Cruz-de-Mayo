@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Repositorios;
 
-use App\Exceptions\UserNotFoundException;
+use App\Models\DTOs\UsuarioDTO;
+use App\Models\Entidades\Usuario;
 
 interface UsuarioRepository {
 
