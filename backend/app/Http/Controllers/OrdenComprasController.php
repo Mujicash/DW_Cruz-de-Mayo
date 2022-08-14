@@ -83,6 +83,6 @@ class OrdenComprasController extends Controller {
             $statusCode = $e->getCode();
         }
 
-        return response()->json(['message' => $message])->setStatusCode(500);
+        return response()->json(['message' => $message])->setStatusCode($statusCode);
     }
 }

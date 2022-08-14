@@ -115,4 +115,15 @@ class DBUsuarioRepository implements UsuarioRepository {
 
         return $branchId[0]->id_sucursal;
     }
+
+    /**
+     * @throws UserNotFoundException
+     */
+    public function logout($usuario) {
+        $result = DB::update('update usuarios set api_token = null where id = :id', ['id' => $usuario]);
+
+        if ($result == 0) {
+            throw new UserNotFoundException('No user was found', 204);
+        }
+    }
 }

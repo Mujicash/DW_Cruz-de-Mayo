@@ -29,4 +29,8 @@ class StockLN {
 
         return $this->repository->getAll($idSucursal);
     }
+
+    public function disminuir() {
+        $this->repository->disminuirStock();
+    }
 }
