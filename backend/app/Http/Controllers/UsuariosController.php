@@ -140,4 +140,21 @@ class UsuariosController extends Controller {
 
         return response()->json($result)->setStatusCode($statusCode);
     }
+
+    public function logout(Request $request) {
+        $usuario    = $request['id_usuario'];
+        $repository = new DBUsuarioRepository();
+
+        try {
+            $repository->logout($usuario);
+            $result     = "Sesion terminada";
+            $statusCode = 200;
+        }
+        catch (Exception $e) {
+            $result     = array('Error' => $e->getMessage());
+            $statusCode = ($e instanceof UserNotFoundException) ? 204 : 500;
+        }
+
+        return response()->json($result)->setStatusCode($statusCode);
+    }
 }
