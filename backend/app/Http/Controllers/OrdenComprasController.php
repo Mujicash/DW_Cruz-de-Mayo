@@ -10,12 +10,13 @@ use \Laravel\Lumen\Routing\Controller;
 
 class OrdenComprasController extends Controller {
 
-    public function listarOrdenes() {
+    public function listarOrdenes(Request $request) {
         $repositorio = new DBOrdenCompraRepository();
         $ordenCompLN = new OrdenCompraLN($repositorio);
+        $idUsuario   = $request["id_usuario"];
 
         try {
-            $result     = $ordenCompLN->listar();
+            $result     = $ordenCompLN->listar($idUsuario);
             $statusCode = 200;
         }
         catch (Exception $e) {
