@@ -46,8 +46,8 @@ class OrdenCompraLN {
     /**
      * @throws Exception
      */
-    public function listar(): array {
-        return $this->repository->getAll();
+    public function listar(int $idUsuario): array {
+        return $this->repository->getAll($idUsuario);
     }
 
     /**

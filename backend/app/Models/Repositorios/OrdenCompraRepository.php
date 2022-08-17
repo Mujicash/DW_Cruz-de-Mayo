@@ -12,7 +12,7 @@ interface OrdenCompraRepository {
 
     public function createDetail(DetalleCompra $detalleCompra): bool;
 
-    public function getAll(): array;
+    public function getAll(int $idUsuario): array;
 
     public function getDetail(int $idOrden): DetalleCompraDTO;
 
