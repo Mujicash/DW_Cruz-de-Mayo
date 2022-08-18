@@ -40,7 +40,7 @@ class ProveedorLN {
     /**
      * @throws Exception
      */
-    public function obtener(int $id): array {
+    public function obtener(int $id) {
         return $this->repository->getById($id);
     }
 

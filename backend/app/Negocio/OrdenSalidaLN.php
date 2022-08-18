@@ -41,8 +41,12 @@ class OrdenSalidaLN {
     /**
      * @throws Exception
      */
-    public function listar() {
-        return $this->repository->getAll();
+    public function listar(int $idUsuario) {
+        $userRepo = new DBUsuarioRepository();
+        $userBran = new GetUserBranch($userRepo);
+        $branch   = $userBran->getId($idUsuario);
+
+        return $this->repository->getAllBranchOrders($branch);
     }
 
     /**
