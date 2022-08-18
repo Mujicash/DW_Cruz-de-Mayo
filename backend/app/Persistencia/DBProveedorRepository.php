@@ -23,20 +23,14 @@ class DBProveedorRepository implements ProveedorRepository {
     /**
      * @throws SupplierNotFoundException
      */
-    public function getById(int $id): array {
+    public function getById(int $id): Proveedor {
         $result      = DB::select('SELECT * FROM proveedores WHERE id = :id', ['id' => $id]);
-        $proveedores = array();
 
         if (empty($result)) {
             throw new SupplierNotFoundException('There are not suppliers with id ' . $id, 204);
         }
 
-        foreach ($result as $i) {
-            $proveedor     = new Proveedor($i->nombre, $i->ruc, $i->direccion, $i->correo, $i->telefono, $i->id);
-            $proveedores[] = $proveedor;
-        }
-
-        return $proveedores;
+        return new Proveedor($result[0]->nombre, $result[0]->ruc, $result[0]->direccion, $result[0]->correo, $result[0]->telefono, $result[0]->id);;
     }
 
     public function update(Proveedor $proveedor): int {

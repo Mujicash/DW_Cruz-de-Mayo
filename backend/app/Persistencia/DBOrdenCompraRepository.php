@@ -43,8 +43,8 @@ class DBOrdenCompraRepository implements OrdenCompraRepository {
     /**
      * @throws Exception
      */
-    public function getAll(int $idUsuario): array {
-        $result  = DB::select('select O.id, O.fecha_compra, P.ruc, sum(precio * cantidad) total, O.estado from orden_compras O, proveedores P, compra_detalles CD where CD.id_compra = O.id and P.id = O.id_proveedor and O.id_usuario = :idUsuario group by CD.id_compra', ['idUsuario' => $idUsuario]);
+    public function getAllBranchOrders(int $idSucursal): array {
+        $result  = DB::select('select O.id, O.fecha_compra, P.ruc, sum(precio * cantidad) total, O.estado from orden_compras O, proveedores P, compra_detalles CD where CD.id_compra = O.id and P.id = O.id_proveedor and O.id_sucursal = :idUsuario group by CD.id_compra', ['idUsuario' => $idSucursal]);
         $ordenes = array();
 
         if (empty($result)) {

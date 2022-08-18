@@ -11,7 +11,7 @@ interface OrdenSalidaRepository {
 
     public function createDetail(DetalleSalida $detalleSalida);
 
-    public function getAll();
+    public function getAllBranchOrders(int $idSucursal);
 
     public function getDetail(int $id);
 }

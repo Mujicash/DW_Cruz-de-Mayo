@@ -84,7 +84,7 @@ class UsuariosController extends Controller {
             'apellidoPaterno' => $request->apellidoPaterno,
             'apellidoMaterno' => $request->apellidoMaterno,
             'password'        => $request->password,
-            'tipo'            => $request->tipo,
+            'tipo'            => $request->tipo_usuario,
             'sucursal'        => $request->sucursal
         ];
 

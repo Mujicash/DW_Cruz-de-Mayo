@@ -41,8 +41,8 @@ class DBOrdenSalidaRepository implements OrdenSalidaRepository {
     /**
      * @throws Exception
      */
-    public function getAll(): array {
-        $result  = DB::select('select O.id, U.nombre, O.fecha from orden_salidas O, usuarios U where U.id = O.id_usuario');
+    public function getAllBranchOrders(int $idSucursal): array {
+        $result  = DB::select('select O.id, U.nombre, O.fecha from orden_salidas O, usuarios U where U.id = O.id_usuario and O.id_sucursal = :idSucursal', ['idSucursal' => $idSucursal]);
         $ordenes = array();
 
         if (empty($result)) {

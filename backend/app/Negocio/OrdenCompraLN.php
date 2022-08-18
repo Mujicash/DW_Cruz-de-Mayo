@@ -47,7 +47,11 @@ class OrdenCompraLN {
      * @throws Exception
      */
     public function listar(int $idUsuario): array {
-        return $this->repository->getAll($idUsuario);
+        $usuarioRp  = new DBUsuarioRepository();
+        $usuarioLN  = new GetUserBranch($usuarioRp);
+        $idSucursal = $usuarioLN->getId($idUsuario);
+
+        return $this->repository->getAllBranchOrders($idSucursal);
     }
 
     /**
