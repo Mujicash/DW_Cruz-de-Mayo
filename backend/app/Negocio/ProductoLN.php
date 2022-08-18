@@ -43,10 +43,12 @@ class ProductoLN {
 
     /**
      * @throws ProductNotFoundException
+     * @throws Exception
      */
     public function actualizar($id, $nombre, $laboratorio, $precio, $descripcion, $formato) {
-
-        $producto = new Producto($id, $nombre, $laboratorio, $precio, $descripcion, $formato);
+        $ln        = new FormatoLN(new DBFormatoRepository());
+        $idFormato = $ln->obtenerPorNombre($formato)->getId();
+        $producto = new Producto($id, $nombre, $laboratorio, $precio, $descripcion, $idFormato);
         $result   = $this->repository->update($producto);
 
         if (!$result) {
