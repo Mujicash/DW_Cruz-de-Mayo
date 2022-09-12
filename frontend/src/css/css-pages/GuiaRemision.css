@@ -1,0 +1,104 @@
+.farm-1 {
+    color: #4d4d4d;
+    display: inline;
+    font-size: 30px;
+    line-height: 36px;
+    text-align: center;
+}
+
+.farm-2 {
+    color: #67ab9f;
+    display: inline;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 36px;
+    text-align: center;
+}
+
+.form-credenciales input:not(input[type="submit"]) {
+    background-color: #ffffff;
+    border-color: #ced4da;
+    border-radius: 0px 6px 6px 0px;
+    border-style: solid;
+    border-width: 1px;
+    color: #1d2129;
+    display: inline-block;
+    font-family: Helvetica;
+    font-size: 17px;
+    line-height: 16px;
+    padding: 2px 16px;
+    width: auto;
+
+}
+
+.a-container {
+    align-items: center;
+    background-color: #67ab9f;
+    border-color: #ced4da;
+    border-radius: 0px 6px 6px 0px;
+    border-style: solid;
+    border-width: 1px;
+    color: #ffffff;
+    display: flex;
+    line-height: 24px;
+    padding: 2px 12px;
+    text-align: center;
+}
+
+* {
+    font-family: Helvetica, Arial, sans-serif;
+
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.input-group input[type="text"] {
+    width: 390px;
+}
+
+.input-numero {
+    width: 35 0px;
+}
+
+.cont-second {
+    display: flex;
+    flex-direction: row;
+}
+
+.cont-datos-proveedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
+    margin: 11px;
+}
+
+.cont-datos-guia * {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 5px;
+    padding: 2px;
+}
+
+.cont-inputs {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    cursor: default;
+}

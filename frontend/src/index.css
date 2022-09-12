@@ -1,0 +1,63 @@
+:root{
+    /* colores */
+    /** Jefe de almacen*/
+    --primary : #67AB9F;
+    --primary-dark :#48746c;
+
+    /** Administrador*/
+    --admin: #5996BF;
+    --admin-dark: #437291;
+    
+    /** Encargado de Botica*/
+    --encargado: #809696;
+    --encargado-dark: #666666;
+
+    /** generales*/
+    --secondary : #F4D03F ;
+    --dark :  #1b1f1e;
+    --light : #f3f3f3;
+    --gris: #d7d7d8;
+    --gris-ligth: #ebebeb;
+
+    --success: #CDEB8B;
+    --success-dark: #B3C58B;
+    --warning: #ffc88e;
+    --warning-dark: #FFB570;
+    --danger: #EA6B66;
+    --danger-dark: #b34e4b;
+    --normal: #DAE8FC;
+    --normal-dark: #5996BF;
+
+    /* estructurales */
+    --length-nav: 300px;
+}
+
+
+
+
+*{
+  box-sizing: border-box;
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+button{
+  border: none;
+}
+
+dialog::backdrop{
+  background-color: #000a;
+}

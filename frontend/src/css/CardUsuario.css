@@ -1,0 +1,43 @@
+.card_usuario{
+    display: flex;
+    background-color: var(--ligth);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--primary);
+    box-shadow: 5px 5px 5px 0px #00000036;
+    margin-bottom: 40px;
+}
+
+.card_cont_user{
+    margin-right: 20px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card_cont_user>img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.card_cont_info{
+    padding: 20px;
+}
+
+.card_cont_info>h1>span{
+    color: var(--primary);
+}
+
+.card_cont_info>ul{
+    margin-top: 50px;
+}
+
+.card_cont_info>ul>li{
+    margin-bottom: 5px;
+}
+
+.card_cont_info>ul>li>.info_key{
+    color: var(--primary);
+    font-weight: bold;
+}

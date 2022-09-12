@@ -1,0 +1,17 @@
+
+.cont_btn_tab{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn_tab{
+    padding: 5px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+/* .btn_tab:not(:last-of-type){
+    margin-right: 10px;
+} */

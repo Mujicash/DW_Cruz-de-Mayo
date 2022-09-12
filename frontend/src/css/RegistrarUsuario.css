@@ -1,0 +1,71 @@
+.dia-reg-user{
+    width: 900px;
+    padding: 20px;
+    border: none;
+    border-radius:20px ;
+}
+
+.cont-tit-reg-user{
+    border-bottom: 1px solid var(--gris) ;
+}
+
+.cont-tit-reg-user>h1{
+    color: var(--normal-dark);
+}
+
+.cont_form_reg{
+    display: flex;
+    padding: 20px 0;
+    justify-content: space-around;
+}
+
+.cont_form_reg>label{
+    width: 35%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.cont_form_reg>label>div{
+    width: 80%;
+    color: var(--normal-dark);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.cont_button_reg{
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid var(--gris);
+    padding-top: 20px;
+}
+
+.input_reg{
+    width: 80%;
+    border: 2px solid var(--normal);
+    height: 40px;
+    border-radius: 20px;
+    padding-left: 15px;
+}
+
+.input_reg:focus{
+    outline: none;
+    border: 2px solid var(--normal-dark);
+}
+
+.cont_button_reg>.btn_cancelar_user{
+    padding: 10px 20px;
+    background-color: var(--warning);
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+.cont_button_reg>.btn_registrar_user{
+    padding: 10px 20px;
+    background-color: var(--success);
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+}
